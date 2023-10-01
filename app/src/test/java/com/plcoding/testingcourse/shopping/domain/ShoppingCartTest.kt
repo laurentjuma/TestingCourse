@@ -4,6 +4,7 @@ import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 
 internal class ShoppingCartTest {
@@ -14,7 +15,7 @@ internal class ShoppingCartTest {
         shoppingCart = ShoppingCart()
     }
 
-    @Test
+    @RepeatedTest(10)
     fun `Add multiple products, ensure total price is correct`() {
         // Given
         val product1 = Product(0, "PS5", 300.0)
