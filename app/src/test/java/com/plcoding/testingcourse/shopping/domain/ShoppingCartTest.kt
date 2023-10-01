@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 
 internal class ShoppingCartTest {
@@ -18,8 +19,19 @@ internal class ShoppingCartTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = [1, 2, 3, 4, 5])
-    fun `Add multiple products, ensure total price is correct`(quantity: Int) {
+    @CsvSource(
+        "1, 300.0",
+        "2, 600.0",
+        "3, 900.0",
+        "4, 1200.0",
+        "5, 1500.0",
+        "6, 1800.0",
+        "7, 2100.0",
+        "8, 2400.0",
+        "9, 2700.0",
+        "10, 3000.0",
+    )
+    fun `Add multiple products, ensure total price is correct`(quantity: Int, expectedPrice: Double) {
         // Given
         val product1 = Product(0, "PS5", 300.0)
         shoppingCart.addProduct(product1, quantity)
@@ -28,7 +40,7 @@ internal class ShoppingCartTest {
         val totalPrice = shoppingCart.getTotalCost()
 
         //Assert
-        assertThat(totalPrice).isEqualTo(quantity * product1.price)
+        assertThat(totalPrice).isEqualTo(expectedPrice)
     }
 
     @RepeatedTest(10)
