@@ -57,4 +57,18 @@ internal class ShoppingCartTest {
             cart.addProduct(product, -5)
         }
     }
+
+    @Test
+    fun `isvalidProduct returns invalid for invalid product`() {
+        val product = Product(
+            id = 232323,
+            name = "Ice cream",
+            price = 5.0
+        )
+        cart.addProduct(product, 5)
+
+        val totalPrice = cart.getTotalCost()
+
+        assertThat(totalPrice).isEqualTo(0.0)
+    }
 }
